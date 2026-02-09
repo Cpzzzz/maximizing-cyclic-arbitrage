@@ -47,8 +47,8 @@ The AO problem is proven to be **NP-hard** via a reduction from the Partition pr
 
 ### Baselines
 
-- **ODE (One-Detected, One-Execute):** Identifies the single most profitable cycle and optimizes it independently, ignoring all other cycles.
-- **MIC (Maximum Independent Cycles):** Greedily selects a set of non-overlapping (independent) cycles and optimizes each one separately, avoiding the complexity of shared liquidity pools but missing joint optimization opportunities.
+- **ODE (One-Detected, One-Execute):** Identifies the single profitable cycle and uses the gradually increasing linear search to maximize the revenue, then repeats the process.
+- **MIC (Multiple Independent Cycles):** Greedily selects a set of non-overlapping (independent) cycles and optimizes each one separately, avoiding the complexity of shared liquidity pools but missing joint optimization revenue.
 
 ## Demo
 
