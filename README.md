@@ -4,21 +4,7 @@
 
 Decentralized exchanges (DEXs) are key infrastructures in the blockchain ecosystem, enabling direct cryptocurrency exchanges without intermediaries through Automated Market Maker (AMM) mechanisms. The AMM determines exchange rates based on liquidity reserves, causing a phenomenon known as slippage where rates fluctuate dynamically with transaction volume. These rapid fluctuations create cyclic arbitrage opportunities — a searcher can exchange cryptocurrencies through a cycle (e.g., $A \to B \to C \to A$) to exploit transient price discrepancies and profit by increasing their holdings of the target cryptocurrency. Existing methods follow a "One-Detected, One-Execute" approach: they immediately execute arbitrage upon detecting a single profitable cycle, then repeat. This ignores how intermediate transactions alter liquidity reserves and how overlapping cycles interact, leaving significant profit on the table.
 
-## The Problem of Existing Methods
-
-Existing cyclic arbitrage methods follow a "One-Detected, One-Execute" approach — they detect a single profitable cycle, execute it immediately, and repeat. This strategy has three fundamental shortcomings: 
-
-### Challenge 1: Multi-Cycle Joint Optimization
-
-In practice, arbitrage cycles frequently overlap, sharing one or more liquidity pools. Executing one cycle changes the reserves (and therefore the exchange rates) of shared pools, directly affecting the profitability of other cycles. Existing methods such as those that focus on single cycles or multiple independent cycles ignore these interdependencies.
-
-### Challenge 2: Lack of Algorithm Guarantees
-
-Many existing methods rely on heuristic or black-box optimization techniques that provide no theoretical guarantees on how close their solutions are to the optimal.
-
-### Challenge 3: Computational Efficiency
-
-Arbitrage opportunities are transient and must be exploited within tight time windows (a single block). Algorithms whose running time grows exponentially with input size are impractical.
+Existing cyclic arbitrage methods follow a "One-Detected, One-Execute" approach — they detect a single profitable cycle, execute it immediately, and repeat. This strategy has three fundamental shortcomings: (1) Multi-Cycle Joint Optimization: cycle overlapping is prevalent, yet existing works focus on single cycles or multiple independent cycles, neglecting higher revenue from joint optimization; (2) Lack of Algorithm Guarantees: existing heuristic and black-box methods provide no theoretical guarantees on how close the solution is to optimal; (3) Computational Efficiency: arbitrage opportunities are transient and must be exploited within a block time, yet existing methods do not adequately control computational complexity.
 
 ## Problem Definition
 
@@ -42,7 +28,7 @@ The AO problem is proven to be **NP-hard** via a reduction from the Partition pr
 
 ### ADP: Arbitrage Dynamic Programming
 
-**Key idea:** Segment decomposition combined with dynamic programming. ADP decomposes the network of interleaved cycles into a sequence of linear segments (each containing multiple independent parallel paths), then optimizes allocation within each segment using DP, and composes the local solutions into a global strategy.
+**Key idea:** Segment decomposition combined with dynamic programming. ADP decomposes the network of interleaved cycles into a sequence of linear segments (each containing multiple parallel paths), then optimizes allocation within each segment using DP, and composes the local solutions into a global strategy.
 
 **Theoretical properties:**
 - **Approximation ratio:** $e \approx 2.72$. In practice, with a small approximation parameter $\epsilon$, the actual ratio is much better than this theoretical upper bound.
